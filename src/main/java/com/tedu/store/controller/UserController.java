@@ -14,7 +14,7 @@ public class UserController extends BaseController{
     @Autowired
     private IUserService userService;
 
-    @RequestMapping ("/reg.do")
+    @PostMapping ("/reg.do")
     public ResponseResult<Void> handleReg(User user)throws Exception{
         userService.register(user);
         return new ResponseResult<Void>(SUCCESS);
