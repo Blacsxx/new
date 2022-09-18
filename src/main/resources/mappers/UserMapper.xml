@@ -18,6 +18,20 @@
                 #{modifiedUser}, #{modifiedTime})
     </insert>
 
+
+    <!--根据id修改用户密码-->
+    <!--Integer updatePassword(Integer id)-->
+    <update id="updatePassword">
+        update
+            t_user
+        set
+            password = #{password},
+            modified_user = #{modifiedUser},
+            modified_time = #{modifiedTime}
+        where
+            id = #{id}
+    </update>
+
     <!--根据用户名查询用户数据-->
     <!--User findByUsername(String username)-->
     <select id="findByUsername" resultType="com.tedu.store.entity.User">
@@ -29,5 +43,17 @@
                avatar
         from t_user
         where username = #{username}
+    </select>
+
+
+    <!--根据用户id查询用户数据-->
+    <!-- User findById(Integer id)-->
+    <select id="findById" resultType="com.tedu.store.entity.User">
+        select username,
+               password,
+               salt,
+               is_delete as isDelete
+        from t_user
+        where id = #{id}
     </select>
 </mapper>

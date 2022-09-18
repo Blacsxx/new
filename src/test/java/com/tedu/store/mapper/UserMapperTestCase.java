@@ -37,4 +37,16 @@ public class UserMapperTestCase {
         User user = userMapper.findByUsername("admin");
         System.out.println("user = " + user);
     }
+
+    @Test
+    public void updatePassword(){
+        Integer integer = userMapper.updatePassword(5, "1234", "tom", new Date());
+        System.out.println("integer = " + integer);
+    }
+
+    @Test
+    public void findById(){
+        User user = userMapper.findById(6);
+        System.out.println("user = " + user);
+    }
 }
