@@ -17,8 +17,9 @@ public interface UserMapper {
 
     /**
      * 根据id修改用户密码
-     * @param id 用户id
-     * @param password 新密码
+     *
+     * @param id           用户id
+     * @param password     新密码
      * @param modifiedUser 记录修改人
      * @param modifiedTime 记录修改时间
      * @return 受影响行数
@@ -26,9 +27,29 @@ public interface UserMapper {
     Integer updatePassword(@RequestParam("id") Integer id, @RequestParam("password") String password, @RequestParam("modifiedUser") String modifiedUser, @RequestParam("modifiedTime") Date modifiedTime);
 
     /**
-     * 根据id查询用户密码
+     * 修改用户上传头像路径
+     *
      * @param id 用户id
-     * @return
+     * @param avatar 头像图片物理位置
+     * @param modifiedUser 记录修改人
+     * @param modifiedTime 记录修改时间
+     * @return 受影响行数
+     */
+    Integer updateAvatar(@RequestParam("id") Integer id, @RequestParam("avatar") String avatar, @RequestParam("modifiedUser") String modifiedUser, @RequestParam("modifiedTime") Date modifiedTime);
+
+    /**
+     * 修改用户信息(不含用户名,密码和头像)
+     *
+     * @param user 用户信息
+     * @return 受影响行数
+     */
+    Integer updateInfo(User user);
+
+    /**
+     * 根据id查询用户密码
+     *
+     * @param id 用户id
+     * @return 用户信息
      */
     User findById(Integer id);
 

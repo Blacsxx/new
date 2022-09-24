@@ -35,4 +35,25 @@ public interface IUserService {
      * @throws UpdateException
      */
     void changePassword(Integer id,String oldPassword,String newPassword)throws UserNotFoundException, PasswordNotMatchException, UpdateException;
+
+    /**
+     * 修改用户信息
+     * @param user 用户资料
+     */
+    void changeInfo(User user)throws UserNotFoundException,UpdateException;
+
+    /**
+     * 修改用户头像
+     * @param id
+     * @param avatar
+     */
+    void changeAvatar(Integer id ,String avatar)throws UserNotFoundException,UpdateException;
+
+    /**
+     *根据id查询用户密码
+     * @param id
+     * @return
+     * @throws UserNotFoundException
+     */
+    User getById(Integer id)throws UserNotFoundException;
 }

@@ -53,4 +53,29 @@ public class UserServiceTestCase {
             System.out.println(e.getMessage());
         }
     }
+
+    @Test
+    public void changeInfo(){
+        try {
+            User user = new User();
+            user.setId(8);
+            user.setGender(0);
+            user.setPhone("1111111111111");
+            user.setEmail("email@163.com");
+            iuserService.changeInfo(user);
+        } catch (ServiceException e) {
+            System.out.println(e.getClass().getName());
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void changeAvatar(){
+        try {
+            iuserService.changeAvatar(8,"upload/333.jpg");
+        } catch (ServiceException e) {
+            System.out.println(e.getClass().getName());
+            System.out.println(e.getMessage());
+        }
+    }
 }

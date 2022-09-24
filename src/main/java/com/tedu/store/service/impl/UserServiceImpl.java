@@ -91,6 +91,42 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+    @Override
+    public void changeInfo(User user) throws UserNotFoundException, UpdateException {
+        User data = findById(user.getId());
+        if (data == null) {
+            throw new UserNotFoundException("用户资料不存在!");
+        }
+        if (data.getIsDelete() == 1) {
+            throw new UserNotFoundException("用户资料已删除!");
+        }
+        user.setModifiedUser(data.getUsername());
+        user.setModifiedTime(new Date());
+        updateInfo(user);
+    }
+
+    @Override
+    public void changeAvatar(Integer id, String avatar) throws UserNotFoundException, UpdateException {
+        User user = findById(id);
+        if (user == null) {
+            throw new UserNotFoundException("用户资料不存在!");
+        }
+        if (user.getIsDelete() == 1){
+            throw new UserNotFoundException("用户资料已删除!");
+        }
+        updateAvatar(id,avatar,user.getUsername(),new Date());
+    }
+
+
+    @Override
+    public User getById(Integer id) throws UserNotFoundException {
+        User user = findById(id);
+        user.setPassword(null);
+        user.setSalt(null);
+        user.setIsDelete(null);
+        return user;
+    }
+
 
     /**
      * 获取md5加密密码
@@ -127,17 +163,6 @@ public class UserServiceImpl implements IUserService {
 
 
     /**
-     * 根据用户名查询用户数据
-     *
-     * @param username 用户名
-     * @return 匹配的用户数据, 如果没有用匹配的用户数据则返回null
-     */
-    private User findByUsername(String username) {
-        return userMapper.findByUsername(username);
-    }
-
-
-    /**
      * 根据id修改用户密码
      *
      * @param id           用户id
@@ -151,6 +176,43 @@ public class UserServiceImpl implements IUserService {
         if (integer != 1) {
             throw new UpdateException("更新密码时,出现错误!");
         }
+    }
+
+    /**
+     * 修改用户资料
+     *
+     * @param user 用户信息
+     */
+    private void updateInfo(User user) {
+        Integer integer = userMapper.updateInfo(user);
+        if (integer != 1) {
+            throw new UpdateException("修改用户资料时,出现错误!");
+        }
+    }
+
+    /**
+     * 修改用户头像
+     *
+     * @param id
+     * @param avatar       用户头像地址
+     * @param modifiedUser
+     * @param modifiedTime
+     */
+    private void updateAvatar(Integer id, String avatar, String modifiedUser, Date modifiedTime) {
+        Integer integer = userMapper.updateAvatar(id, avatar, modifiedUser, modifiedTime);
+        if (integer != 1) {
+            throw new UpdateException("用户头像更新,出行错误!");
+        }
+    }
+
+    /**
+     * 根据用户名查询用户数据
+     *
+     * @param username 用户名
+     * @return 匹配的用户数据, 如果没有用匹配的用户数据则返回null
+     */
+    private User findByUsername(String username) {
+        return userMapper.findByUsername(username);
     }
 
     /**

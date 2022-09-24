@@ -36,7 +36,7 @@
         <h4>用户登录</h4>
         <hr/>
         <!--表单开始-->
-        <form id="form-login"  class="form-horizontal" role="form">
+        <form id="form-login" class="form-horizontal" role="form">
             <!--用户名-->
             <div class="form-group">
                 <label for="username" class="col-md-3 control-label">名字：</label>
@@ -166,9 +166,11 @@
             success: function (JSON) {
                 if (JSON.status == 200) {
                     alert("登录成功!");
-                } else if (JSON.status == 401) {
-                    alert(JSON.message);
-                } else if (JSON.status == 402) {
+                    $.cookie("avatar", JSON.data.avatar, {
+                        expires: 7
+                    })
+                    console.log("登录成功,将头像存到cookie"+$.cookie("avatar"));
+                } else {
                     alert(JSON.message);
                 }
             }

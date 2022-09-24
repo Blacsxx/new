@@ -15,9 +15,13 @@ public class WebAppConfigurer extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         ArrayList<String> addPathPatterns = new ArrayList<>();
         addPathPatterns.add("/user/**");
+        addPathPatterns.add("/web/**");
+        addPathPatterns.add("/address/**");
         ArrayList<String> excludePathPatterns = new ArrayList<>();
         excludePathPatterns.add("/user/reg.do");
         excludePathPatterns.add("/user/login.do");
+        excludePathPatterns.add("/web/login.html");
+        excludePathPatterns.add("/web/register.html");
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns(addPathPatterns)
                 .excludePathPatterns(excludePathPatterns);

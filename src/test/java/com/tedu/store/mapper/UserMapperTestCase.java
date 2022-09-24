@@ -49,4 +49,23 @@ public class UserMapperTestCase {
         User user = userMapper.findById(6);
         System.out.println("user = " + user);
     }
+
+    @Test
+    public void updateInfo(){
+        User user = new User();
+        user.setId(8);
+        user.setGender(1);
+        user.setPhone("13000000000");
+        user.setEmail("hanqi2865@163.com");
+        user.setModifiedUser("admin");
+        user.setModifiedTime(new Date());
+        Integer integer = userMapper.updateInfo(user);
+        System.out.println("integer = " + integer);
+    }
+
+    @Test
+    public void updateAvatar() {
+        Integer integer = userMapper.updateAvatar(8, "123", "admin", new Date());
+        System.out.println("integer = " + integer);
+    }
 }
