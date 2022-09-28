@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tedu.store.mapper.GoodsCategoryMapper">
+
+    <!--获取指定腹肌分类下的所有子集商品数据-->
+    <!--List<GoodsCategoryMapper> findByParent(Integer parentId)-->
+    <select id="findByParent" resultType="com.tedu.store.entity.GoodsCategory">
+        select id,
+               parent_id as parentId,
+               name,
+               status,
+               sort_order as  sortOrder,
+               is_parent as isParent
+        from t_goods_category
+        where parent_id = ${parentId}
+    </select>
+
+
+</mapper>

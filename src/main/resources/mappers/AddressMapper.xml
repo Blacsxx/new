@@ -4,7 +4,7 @@
 
     <!--增加新的收货地址-->
     <!--Integer addnew(Address address);-->
-    <insert id="addnew" useGeneratedKeys="true" keyProperty="id" >
+    <insert id="addnew" useGeneratedKeys="true" keyProperty="id">
         insert into t_address
         (uid, name, province,
          city, area, district,
@@ -24,6 +24,43 @@
                 #{modifiedTime})
     </insert>
 
+    <!--更改用户所有地址为非默认-->
+    <!--Integer updateNonDefault(Integer uid);-->
+    <update id="updateNonDefault">
+        update
+            t_address
+        set is_default = 0
+        where uid = #{uid}
+    </update>
+
+
+    <!--更改用户指定地址为默认-->
+    <!--Integer updateDefault(Integer id)-->
+    <update id="updateDefault">
+        update
+            t_address
+        set is_default = 1
+        where id = #{id}
+    </update>
+
+    <!--删除指定id的地址数据-->
+    <!--Integer deleteById(Integer id)-->
+    <delete id="deleteById">
+        delete
+        from t_address
+        where id = #{id}
+    </delete>
+
+
+    <!--查找最近修改的地址的数据-->
+    <!--Address findLastModified(Integer uid)-->
+    <select id="findLastModified" resultType="com.tedu.store.entity.Address">
+        select id
+        from t_address
+        where uid = ${uid}
+        order by modified_time desc limit 0,1
+    </select>
+
     <!--根据用户id查询地址数据总条数-->
     <!--Integer getCountByUid(Integer uid)-->
     <select id="getCountByUid" resultType="java.lang.Integer">
@@ -31,4 +68,30 @@
         from t_address
         where uid = #{uid}
     </select>
+
+    <!--获取某个用户全部地址列表-->
+    <!--List<District> findByUid(Integer uid)-->
+    <select id="findByUid" resultType="com.tedu.store.entity.Address">
+        select id,
+               name,
+               phone,
+               district,
+               address,
+               tag,
+               is_default as isDefault
+        from t_address
+        where uid = #{uid}
+        order by is_default desc,
+                 modified_time desc
+    </select>
+
+    <!--通过指定id获取收货地址数据-->
+    <!--Address findById(Integer id)-->
+    <select id="findById" resultType="com.tedu.store.entity.Address">
+        select uid, is_default as isDefault
+        from t_address
+        where id = #{id}
+    </select>
+
+
 </mapper>

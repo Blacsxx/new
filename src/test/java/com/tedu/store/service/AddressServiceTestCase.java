@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Date;
+import java.util.List;
 
 @SpringBootTest
 public class AddressServiceTestCase {
@@ -25,5 +26,34 @@ public class AddressServiceTestCase {
         address.setArea("440305");
         Address address1 = iAddressService.create("root", address);
         System.out.println("address1 = " + address1);
+    }
+
+    @Test
+    public void fingByUid(){
+        List<Address> list = iAddressService.getByUid(12);
+        for (Address address : list) {
+            System.out.println("address = " + address);
+        }
+    }
+
+    @Test
+    public void setDefault(){
+        try {
+            iAddressService.setDefault(11,13);
+        } catch (ServiceException e) {
+            System.err.println("e.getMessage() = " + e.getMessage());
+            System.err.println(e.getClass());
+        }
+    }
+
+
+    @Test
+    public void delete(){
+        try {
+            iAddressService.delete(12,13);
+        } catch (ServiceException e) {
+            System.err.println("e.class = " + e.getClass());
+            System.err.println("e.getMessage() = " + e.getMessage());
+        }
     }
 }

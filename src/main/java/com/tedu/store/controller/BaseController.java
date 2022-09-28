@@ -16,35 +16,51 @@ public abstract class BaseController {
     @ExceptionHandler({ServiceException.class, RequestException.class})
     @ResponseBody
     public ResponseResult<Void> handleException(Exception e) {
+        Integer state = null;
         if (e instanceof DuplicateKeyException) {
             //400-违反了Unique约束的异常
-            return new ResponseResult<>(400, e);
-        } else if (e instanceof InsertException) {
-            //500-插入书籍异常
-            return new ResponseResult<>(500, e);
+            state = 400;
         } else if (e instanceof PasswordNotMatchException) {
             //401-密码错误异常
-            return new ResponseResult<>(401, e);
+            state = 401;
         } else if (e instanceof UserNotFoundException) {
             //402-用户数据不存在异常
-            return new ResponseResult<>(402, e);
+            state = 402;
+        } else if (e instanceof AccessDeniedException) {
+            //403地址访问拒绝异常
+            state = 403;
+        } else if (e instanceof AddressNotFoundException) {
+            //404收货地址不存在
+            state = 404;
+        } else if (e instanceof GoodsNotFoundException) {
+            //405 商品信息不存在异常
+            state = 405;
+        }else if (e instanceof GoodsCategoryNotFoundException) {
+            //406 商品信息不存在异常
+            state = 406;
+        } else if (e instanceof InsertException) {
+            //500-插入书籍异常
+            state = 500;
         } else if (e instanceof UpdateException) {
             //501-更新异常
-            return new ResponseResult<>(501, e);
+            state = 501;
+        } else if (e instanceof DeleteException) {
+            //502-删除异常
+            state = 502;
         } else if (e instanceof FileEmptyException) {
             //600-上传文件为空的异常
-            return new ResponseResult<>(600, e);
+            state = 600;
         } else if (e instanceof FileSizeOutOfLimitException) {
-            //600-上传文件超出限制的异常
-            return new ResponseResult<>(601, e);
+            //601-上传文件超出限制的异常
+            state = 601;
         } else if (e instanceof FileTypeNotSupportException) {
             //600-上传文件类型不支持的异常
-            return new ResponseResult<>(602, e);
+            state = 602;
         } else if (e instanceof FileUploadException) {
             //600-上传文件异常
-            return new ResponseResult<>(610, e);
+            state = 603;
         }
-        return null;
+        return new ResponseResult<>(state, e);
     }
 
     public Integer getIdBySession(HttpSession session) {
