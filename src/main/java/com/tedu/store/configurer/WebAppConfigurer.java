@@ -17,11 +17,14 @@ public class WebAppConfigurer extends WebMvcConfigurerAdapter {
         addPathPatterns.add("/user/**");
         addPathPatterns.add("/web/**");
         addPathPatterns.add("/address/**");
+        addPathPatterns.add("/cart/**");
         ArrayList<String> excludePathPatterns = new ArrayList<>();
         excludePathPatterns.add("/user/reg.do");
         excludePathPatterns.add("/user/login.do");
         excludePathPatterns.add("/web/login.html");
         excludePathPatterns.add("/web/register.html");
+        excludePathPatterns.add("/web/index.html");
+        excludePathPatterns.add("/web/product.html");
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns(addPathPatterns)
                 .excludePathPatterns(excludePathPatterns);

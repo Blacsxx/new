@@ -13,32 +13,45 @@ public interface IAddressService {
 
     /**
      * 创建新收货地址
+     *
      * @param username 当前执行人
-     * @param address 收货地址信息
+     * @param address  收货地址信息
      * @return 受影响行数
      * @throws InsertException 插入异常
      */
-    Address create(String username, Address address)throws InsertException;
+    Address create(String username, Address address) throws InsertException;
 
     /**
      * 获取某个用户全部地址列表
+     *
      * @param uid 用户的ID
      * @return 地址列表
      */
     List<Address> getByUid(Integer uid);
 
     /**
-     * 设置用户指定地址数据为默认
-     * @param uid 用户id
-     * @param id 用户指定地址数据
+     * 通过指定id获取收货地址数据
+     *
+     * @param id 用户的ID
+     * @return 收货地址数据
      */
-    void setDefault(Integer uid,Integer id);
+    Address getById(Integer id);
+
+
+    /**
+     * 设置用户指定地址数据为默认
+     *
+     * @param uid 用户id
+     * @param id  用户指定地址数据
+     */
+    void setDefault(Integer uid, Integer id);
 
 
     /**
      * 删除用户数据
+     *
      * @param uid 用户id
-     * @param id 地址数据id
+     * @param id  地址数据id
      */
-    void delete(Integer uid,Integer id)throws DeleteException;
+    void delete(Integer uid, Integer id) throws DeleteException;
 }

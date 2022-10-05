@@ -17,13 +17,19 @@ public class GoodsController extends BaseController {
 
     @GetMapping("/list/{categoryId}")
     public ResponseResult<List<Goods>> getGoodsList(@PathVariable("categoryId") Integer categoryId){
-        List<Goods> list = iGoodsService.getByCategoryId(categoryId);
-        return new ResponseResult<>(SUCCESS,list);
+        List<Goods> list = iGoodsService.getByCategoryId(categoryId,0,4);
+        return new ResponseResult<List<Goods>>(SUCCESS,list);
     }
 
     @GetMapping("/details/{id}")
     public ResponseResult<Goods> getDetails(@PathVariable("id") Integer id){
         Goods goods = iGoodsService.getById(id);
-        return new ResponseResult<>(SUCCESS,goods);
+        return new ResponseResult<Goods>(SUCCESS,goods);
+    }
+
+    @GetMapping("/hot")
+    public ResponseResult<List<Goods>> getHotGoods(){
+        List<Goods> list = iGoodsService.getByPriority(4);
+        return new ResponseResult<List<Goods>>(SUCCESS,list);
     }
 }

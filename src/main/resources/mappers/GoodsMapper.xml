@@ -7,9 +7,9 @@
     <select id="findByCategoryId" resultType="com.tedu.store.entity.Goods">
         select id,
                category_id as categoryId,
-               item_type as itemType,
+               item_type   as itemType,
                title,
-               sell_point as sellPoint,
+               sell_point  as sellPoint,
                price,
                num,
                barcode,
@@ -18,6 +18,8 @@
                priority
         from t_goods
         where category_id = ${categoryId}
+        order by priority desc
+            limit ${offset }, ${count}
     </select>
 
     <!--通过指定id获取商品的数据-->
@@ -25,9 +27,9 @@
     <select id="findById" resultType="com.tedu.store.entity.Goods">
         select id,
                category_id as categoryId,
-               item_type as itemType,
+               item_type   as itemType,
                title,
-               sell_point as sellPoint,
+               sell_point  as sellPoint,
                price,
                num,
                barcode,
@@ -38,5 +40,17 @@
         where id = #{id}
     </select>
 
-
+    <!--查询优先级最高的商品-->
+    <!--List<Goods> findByPriority(Integer count)-->
+    <select id="findByPriority" resultType="com.tedu.store.entity.Goods">
+        select id,
+               title,
+               price,
+               image
+        from t_goods
+        where num > 0
+          and status = 1
+        order by priority desc
+        limit 0,#{count}
+    </select>
 </mapper>

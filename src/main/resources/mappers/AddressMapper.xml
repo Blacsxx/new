@@ -88,7 +88,12 @@
     <!--通过指定id获取收货地址数据-->
     <!--Address findById(Integer id)-->
     <select id="findById" resultType="com.tedu.store.entity.Address">
-        select uid, is_default as isDefault
+        select uid,
+               name,
+               phone,
+               district,
+               address,
+               is_default as isDefault
         from t_address
         where id = #{id}
     </select>

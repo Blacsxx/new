@@ -38,6 +38,9 @@ public abstract class BaseController {
         }else if (e instanceof GoodsCategoryNotFoundException) {
             //406 商品信息不存在异常
             state = 406;
+        }else if (e instanceof CartNotFoundException) {
+            //407 购物车商品信息不存在异常
+            state = 407;
         } else if (e instanceof InsertException) {
             //500-插入书籍异常
             state = 500;

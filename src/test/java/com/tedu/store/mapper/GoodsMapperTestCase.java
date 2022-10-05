@@ -21,7 +21,12 @@ public class GoodsMapperTestCase {
 
     @Test
     public void findByCategoryId(){
-        List<Goods> list = goodsMapper.findByCategoryId(238);
+
+    }
+
+    @Test
+    public void findByPriority(){
+        List<Goods> list = goodsMapper.findByPriority(4);
         for (Goods goods : list) {
             System.err.println("goods = " + goods);
         }

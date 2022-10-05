@@ -70,6 +70,11 @@ public class AddressServiceImpl implements IAddressService {
     }
 
     @Override
+    public Address getById(Integer id) {
+        return findById(id);
+    }
+
+    @Override
     @Transactional
     public void delete(Integer uid, Integer id) {
         Address address = findById(id);
