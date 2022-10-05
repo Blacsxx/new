@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tedu.store.mapper.OrderMapper">
+
+    <!--插入用户订单数据-->
+    <!--Integer insertOrder(Order order)-->
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into t_order
+        (uid, recv_name, recv_phone,
+         recv_district,
+         recv_address,
+         pay,
+         order_time,
+         status,
+         created_user,
+         created_time,
+         modified_user,
+         modified_time)
+        values (#{uid}, #{recvName}, #{recvPhone},
+                #{recvDistrict},
+                #{recvAddress},
+                #{pay},
+                #{orderTime},
+                #{status},
+                #{createdUser},
+                #{createdTime},
+                #{modifiedUser},
+                #{modifiedTime})
+    </insert>
+
+    <!--插入用户订单商品数据-->
+    <!--Integer insertOrderItem(OrderItem orderItem)-->
+    <insert id="insertOrderItem" useGeneratedKeys="true" keyProperty="id">
+        insert into t_order_item
+        (oid, goods_id, goods_image,
+         goods_title,
+         goods_count,
+         goods_price,
+         created_user,
+         created_time,
+         modified_user,
+         modified_time)
+        values (#{oid}, #{goodsId}, #{goodsImage},
+                #{goodsTitle},
+                #{goodsCount},
+                #{goodsPrice},
+                #{createdUser},
+                #{createdTime},
+                #{modifiedUser},
+                #{modifiedTime})
+    </insert>
+
+
+</mapper>

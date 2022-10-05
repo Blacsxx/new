@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tedu.store.mapper.CartMapper">
+
+    <!--添加购物车内商品数据-->
+    <!--Integer addNew(Cart cart)-->
+    <insert id="addNew" useGeneratedKeys="true" keyProperty="id">
+        insert into t_cart
+        (uid, gid, price,
+         count,
+         created_user,
+         created_time,
+         modified_user,
+         modified_time)
+        values (#{uid}, #{gid}, #{price},
+                #{count},
+                #{createdUser},
+                #{createdTime},
+                #{modifiedUser},
+                #{modifiedTime})
+    </insert>
+
+    <!--更新购物车内商品数量-->
+    <!--Integer updateCount(@Param("id") Integer id,@Param("count") Integer count)-->
+    <update id="updateCount">
+        update
+            t_cart
+        set count = #{count}
+        where id = #{id}
+    </update>
+
+
+    <!--查找购物车内商品数据-->
+    <!-- Cart findByUidAndGid(@Param("uid") Integer uid,@Param("gid") Integer gid)-->
+    <select id="findByUidAndGid" resultType="com.tedu.store.entity.Cart">
+        select id,
+               count
+        from t_cart
+        where uid = #{uid}
+          and gid = #{gid}
+    </select>
+
+    <!--根据购物车id查询购物车商品数据-->
+    <!-- Cart findById(Integer id)-->
+    <select id="findById" resultType="com.tedu.store.entity.Cart">
+        select uid, count
+        from t_cart
+        where id = #{id}
+    </select>
+
+    <!--根据用户id查询用户购物车数据列表-->
+    <!--List<CartVO> findByUid(Integer uid)-->
+    <select id="findByUid" resultType="com.tedu.store.vo.CartVO">
+        select t_cart.id,
+               uid,
+               gid,
+               t_cart.price  as oldPrice,
+               count,
+               t_goods.price as newPrice,
+               title,
+               image
+        from t_cart
+                 inner join t_goods
+                            on t_cart.gid = t_goods.id
+        where uid = #{uid}
+    </select>
+
+
+    <!--根据购物车提交用户ids数组,查询用户购物车数据列表-->
+    <!--List<CartVO> findByIds(Integer[] ids)-->
+    <select id="findByIds" resultType="com.tedu.store.vo.CartVO">
+        select t_cart.id,
+        uid,
+        gid,
+        t_cart.price as oldPrice,
+        count,
+        t_goods.price as newPrice,
+        title,
+        image
+        from t_cart
+        inner join t_goods
+        on t_cart.gid = t_goods.id
+        where t_cart.id in
+        <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        order by
+        t_cart.id desc
+    </select>
+
+
+</mapper>
